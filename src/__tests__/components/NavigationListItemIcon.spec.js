@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import NavigationListItemIcon from '../components/NavigationListItemIcon';
+import NavigationListItemIcon from '../../components/NavigationListItemIcon';
 
 describe('NavigationListItemIcon Component', () => {
 	it('should render default icon without alert dot', () => {

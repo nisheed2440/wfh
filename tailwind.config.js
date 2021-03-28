@@ -13,6 +13,7 @@ module.exports = {
       },
       spacing: {
         'wf-icon': '18px',
+        'wf-menu': '200px',
       }
     },
 	},

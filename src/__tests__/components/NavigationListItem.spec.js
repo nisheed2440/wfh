@@ -1,5 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import NavigationListItem from '../components/NavigationListItem';
+import { Provider } from 'react-redux';
+import store from '../../store';
+import NavigationListItem from '../../components/NavigationListItem';
 
 describe('NavigationListItem Component', () => {
 	const mockData = {
@@ -12,16 +14,22 @@ describe('NavigationListItem Component', () => {
 	};
 
 	it('should render default', () => {
-		render(<NavigationListItem item={mockData} level={0} />);
+		render(
+			<Provider store={store}>
+				<NavigationListItem item={mockData} level={0} />
+			</Provider>
+		);
 		expect(screen.getByTestId('navigation-link')).toBeInTheDocument();
 	});
 
 	it('should render children as collapsible component', () => {
 		const data = { ...mockData, children: [mockData] };
 		render(
-			<NavigationListItem item={data} level={0}>
-				<div data-testid="test-child" />
-			</NavigationListItem>
+			<Provider store={store}>
+				<NavigationListItem item={data} level={0}>
+					<div data-testid="test-child" />
+				</NavigationListItem>
+			</Provider>
 		);
 		expect(screen.getByTestId('navigation-button')).toBeInTheDocument();
 		expect(screen.getByTestId('navigation-submenu').className).toContain(
@@ -32,9 +40,11 @@ describe('NavigationListItem Component', () => {
 	it('should open collapsible sub menu component on click of navigation button', () => {
 		const data = { ...mockData, children: [mockData] };
 		render(
-			<NavigationListItem item={data} level={0}>
-				<div data-testid="test-child" />
-			</NavigationListItem>
+			<Provider store={store}>
+				<NavigationListItem item={data} level={0}>
+					<div data-testid="test-child" />
+				</NavigationListItem>
+			</Provider>
 		);
 		fireEvent.click(screen.getByTestId('navigation-button'));
 		expect(screen.getByTestId('navigation-submenu').className).toContain(

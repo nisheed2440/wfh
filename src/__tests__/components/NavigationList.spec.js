@@ -1,9 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import NavigationList from '../components/NavigationList';
+import { Provider } from 'react-redux';
+import store from '../../store';
+import NavigationList from '../../components/NavigationList';
 
 describe('NavigationList Component', () => {
 	it('should render default', () => {
-		render(<NavigationList />);
+		render(
+			<Provider store={store}>
+				<NavigationList />
+			</Provider>
+		);
 		expect(screen.getByTestId('navigation-list-0')).toBeInTheDocument();
 	});
 
@@ -26,7 +32,11 @@ describe('NavigationList Component', () => {
 				children: [],
 			},
 		];
-		render(<NavigationList data={mockData} />);
+		render(
+			<Provider store={store}>
+				<NavigationList data={mockData} />)
+			</Provider>
+		);
 		expect(screen.getByTestId('navigation-list-0')).toBeInTheDocument();
 		expect(screen.getAllByTestId('navigation-list-item-0').length).toEqual(
 			2
@@ -53,10 +63,18 @@ describe('NavigationList Component', () => {
 				],
 			},
 		];
-		render(<NavigationList data={mockData} />);
+		render(
+			<Provider store={store}>
+				<NavigationList data={mockData} />)
+			</Provider>
+		);
 		expect(screen.getByTestId('navigation-list-0')).toBeInTheDocument();
 		expect(screen.getByTestId('navigation-list-1')).toBeInTheDocument();
-		expect(screen.getByTestId('navigation-list-item-0')).toBeInTheDocument();
-		expect(screen.getByTestId('navigation-list-item-1')).toBeInTheDocument();
+		expect(
+			screen.getByTestId('navigation-list-item-0')
+		).toBeInTheDocument();
+		expect(
+			screen.getByTestId('navigation-list-item-1')
+		).toBeInTheDocument();
 	});
 });

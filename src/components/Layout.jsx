@@ -1,10 +1,13 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { IoMenuSharp } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import { isNavOpen } from '../store/selectors/settingsSelectors';
+import { toggleNavOpen } from '../store/reducers/settingsReducer';
 
 const Layout = ({ sidebar, header, children }) => {
-	const [sidebarExpand, setSidebarExpand] = useState(false);
+	const navOpen = useSelector(isNavOpen);
+    const dispatch = useDispatch();
 	return (
 		<div
 			className="w-full h-full flex flex-row overflow-hidden"
@@ -14,19 +17,19 @@ const Layout = ({ sidebar, header, children }) => {
 				className={cx(
 					'flex flex-col border-r border-wf-gray transition-all',
 					{
-						'w-14': !sidebarExpand,
-						'w-80': sidebarExpand,
+						'w-14': !navOpen,
+						'w-80': navOpen,
 					}
 				)}
 				data-testid="sidebar-container"
 			>
 				<div className="h-16 flex flex-shrink-0 items-center px-5">
 					<button
-						aria-label={sidebarExpand ? 'menu-fold' : 'menu-unfold'}
+						aria-label={navOpen ? 'menu-fold' : 'menu-unfold'}
 						className="w-wf-icon h-wf-icon text-wf-icon flex justify-center items-center"
 						type="button"
 						onClick={() => {
-							setSidebarExpand(!sidebarExpand);
+							dispatch(toggleNavOpen());
 						}}
 						data-testid="sidebar-toggle"
 					>
