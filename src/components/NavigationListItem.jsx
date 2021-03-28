@@ -28,7 +28,7 @@ const NavigationListItem = ({ item, level, children }) => {
 			{!hasChildren && (
 				<a
 					href={url}
-					className="w-full flex px-5 py-4 items-center text-sm"
+					className="w-full flex px-5 py-2 items-center text-sm"
 					data-testid="navigation-link"
 				>
 					<NavigationListItemIcon
@@ -43,7 +43,7 @@ const NavigationListItem = ({ item, level, children }) => {
 			{hasChildren && (
 				<>
 					<button
-						className="w-full flex px-5 py-4 items-center text-sm"
+						className="w-full flex px-5 py-2 items-center text-sm"
 						onClick={handleSubMenuToggle}
 						data-testid="navigation-button"
 					>
