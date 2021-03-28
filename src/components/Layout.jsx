@@ -7,7 +7,7 @@ const Layout = ({ sidebar, header, children }) => {
 	const [sidebarExpand, setSidebarExpand] = useState(false);
 	return (
 		<div
-			className="w-full h-full flex flex-row"
+			className="w-full h-full flex flex-row overflow-hidden"
 			data-testid="layout-container"
 		>
 			<aside
@@ -20,10 +20,10 @@ const Layout = ({ sidebar, header, children }) => {
 				)}
 				data-testid="sidebar-container"
 			>
-				<div className="h-16 flex flex-shrink-0 items-center px-4">
+				<div className="h-16 flex flex-shrink-0 items-center px-5">
 					<button
 						aria-label={sidebarExpand ? 'menu-fold' : 'menu-unfold'}
-						className="w-6 h-6 flex justify-center items-center text-lg"
+						className="w-wf-icon h-wf-icon text-wf-icon flex justify-center items-center"
 						type="button"
 						onClick={() => {
 							setSidebarExpand(!sidebarExpand);
@@ -33,10 +33,8 @@ const Layout = ({ sidebar, header, children }) => {
 						<IoMenuSharp />
 					</button>
 				</div>
-				<div className="flex-1">
-					<nav className="overflow-y" data-testid="sidebar">
-						{sidebar}
-					</nav>
+				<div className="flex-1" data-testid="sidebar">
+					{sidebar}
 				</div>
 			</aside>
 			<div
