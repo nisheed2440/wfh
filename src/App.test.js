@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Wayfair/i);
-  expect(linkElement).toBeInTheDocument();
+describe('App Root', () => {
+	it('should render the layout', () => {
+		render(<App />);
+		const layoutElement = screen.getByTestId('layout-container');
+		expect(layoutElement).toBeInTheDocument();
+	});
 });

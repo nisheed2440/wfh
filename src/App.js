@@ -1,25 +1,18 @@
-import logo from './logo.svg';
+import Layout from './components/Layout';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://www.wayfair.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Wayfair
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Layout header={<div />} sidebar={<div />}>
+			<p>
+				Sint excepteur eiusmod id exercitation reprehenderit occaecat
+				consectetur Lorem dolore. Anim veniam eu ipsum duis eiusmod et
+				in ipsum id aliquip qui. Amet velit tempor sint amet dolor minim
+				voluptate elit officia. Dolore tempor deserunt reprehenderit
+				voluptate laboris esse non culpa duis.
+			</p>
+		</Layout>
+	);
 }
 
 export default App;
