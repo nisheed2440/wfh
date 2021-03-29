@@ -1,15 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import store from '../../store';
+import MockWrapper from '../../utils/MockWrapper';
 import NavigationList from '../../components/NavigationList';
 
 describe('NavigationList Component', () => {
 	it('should render default', () => {
-		render(
-			<Provider store={store}>
-				<NavigationList />
-			</Provider>
-		);
+		render(<NavigationList />, { wrapper: MockWrapper });
 		expect(screen.getByTestId('navigation-list-0')).toBeInTheDocument();
 	});
 
@@ -32,11 +27,7 @@ describe('NavigationList Component', () => {
 				children: [],
 			},
 		];
-		render(
-			<Provider store={store}>
-				<NavigationList data={mockData} />)
-			</Provider>
-		);
+		render(<NavigationList data={mockData} />, { wrapper: MockWrapper });
 		expect(screen.getByTestId('navigation-list-0')).toBeInTheDocument();
 		expect(screen.getAllByTestId('navigation-list-item-0').length).toEqual(
 			2
@@ -63,11 +54,7 @@ describe('NavigationList Component', () => {
 				],
 			},
 		];
-		render(
-			<Provider store={store}>
-				<NavigationList data={mockData} />)
-			</Provider>
-		);
+		render(<NavigationList data={mockData} />, { wrapper: MockWrapper });
 		expect(screen.getByTestId('navigation-list-0')).toBeInTheDocument();
 		expect(screen.getByTestId('navigation-list-1')).toBeInTheDocument();
 		expect(

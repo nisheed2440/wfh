@@ -9,7 +9,7 @@ import {
 import {
 	isNavOpen,
 	getUserData,
-	hasUserData,
+    isLoggedIn,
 } from '../../../store/selectors/settingsSelectors';
 
 describe('settingsReducer', () => {
@@ -23,11 +23,13 @@ describe('settingsReducer', () => {
 		expect(getUserData(store.getState())).toMatchObject(userMockLoggedOutData);
 		store.dispatch(login());
 		expect(getUserData(store.getState())).toMatchObject(userMockLoggedInData);
+        expect(isLoggedIn(store.getState())).toBeTruthy();
 	});
 
     it('should unset user data', () => {
 		expect(getUserData(store.getState())).toMatchObject(userMockLoggedInData);
 		store.dispatch(logout());
 		expect(getUserData(store.getState())).toMatchObject(userMockLoggedOutData);
+        expect(isLoggedIn(store.getState())).toBeFalsy();
 	});
 });

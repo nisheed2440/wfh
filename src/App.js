@@ -1,25 +1,36 @@
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import data from './navigation.json';
 import Navigation from './components/Navigation';
+import HeaderActions from './components/HeaderActions';
 import './App.css';
 import store from './store';
-import HeaderActions from './components/HeaderActions';
+import Login from './pages/Login';
+import Logout from './pages/Logout';
 
 function App() {
 	return (
-		<Provider store={store}>
-			<Layout header={<HeaderActions />} sidebar={<Navigation data={data} />}>
-				<p>
-					Sint excepteur eiusmod id exercitation reprehenderit
-					occaecat consectetur Lorem dolore. Anim veniam eu ipsum duis
-					eiusmod et in ipsum id aliquip qui. Amet velit tempor sint
-					amet dolor minim voluptate elit officia. Dolore tempor
-					deserunt reprehenderit voluptate laboris esse non culpa
-					duis.
-				</p>
-			</Layout>
-		</Provider>
+		<Router>
+			<Provider store={store}>
+				<Layout
+					header={<HeaderActions />}
+					sidebar={<Navigation data={data} />}
+				>
+					<Switch>
+						<Route path="/u/login">
+							<Login />
+						</Route>
+						<Route path="/u/logout">
+							<Logout />
+						</Route>
+						<Route path="/">
+							<div />
+						</Route>
+					</Switch>
+				</Layout>
+			</Provider>
+		</Router>
 	);
 }
 

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 export const userMockLoggedInData = {
 	label: 'Safavieh',
 	menuItems: [
@@ -22,22 +21,9 @@ export const userMockLoggedInData = {
 		{
 			title: 'English(UK)',
 			id: 'lang',
-			children: [
-				{
-					title: 'French(CA)',
-					id: 'fr-CA',
-				},
-				{
-					title: 'English(CA)',
-					id: 'en-CA',
-				},
-				{
-					title: 'English(UK)',
-					id: 'en',
-				},
-			],
+			children: [],
 		},
-        {
+		{
 			title: 'Logout',
 			id: 'logout',
 			url: '/u/logout',
@@ -47,7 +33,7 @@ export const userMockLoggedInData = {
 
 export const userMockLoggedOutData = {
 	menuItems: [
-        {
+		{
 			title: 'Login',
 			id: 'login',
 			url: '/u/login',
@@ -58,7 +44,7 @@ export const userMockLoggedOutData = {
 const initialState = {
 	navOpen: false,
 	user: userMockLoggedOutData,
-    loggedIn: false,
+	loggedIn: false,
 };
 
 const settingsSlice = createSlice({
@@ -70,12 +56,12 @@ const settingsSlice = createSlice({
 		},
 		login(state) {
 			state.user = userMockLoggedInData;
-            state.loggedIn = true;
+			state.loggedIn = true;
 		},
-        logout(state){
-            state.user = userMockLoggedOutData;
-            state.loggedIn = false;
-        }
+		logout(state) {
+			state.user = userMockLoggedOutData;
+			state.loggedIn = false;
+		},
 	},
 });
 

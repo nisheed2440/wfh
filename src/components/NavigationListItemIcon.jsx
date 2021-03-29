@@ -7,7 +7,7 @@ const NavigationListItemIcon = ({ icon, hasAlert, isActive, level }) => {
 		return (
 			<div
 				data-testid="item-icon-spacer"
-				className="w-wf-icon h-wf-icon flex justify-end items-center mr-2.5"
+				className="w-wf-icon h-wf-icon flex flex-shrink-0 justify-end items-center mr-2.5"
 			>
 				{isActive && (
 					<div

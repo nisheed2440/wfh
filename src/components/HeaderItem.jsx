@@ -35,7 +35,7 @@ export const HeaderItem = ({ menuData, menuItem }) => {
 			{menuShown && (
 				<div
 					data-testid="header-item-dropdown"
-					className="w-wf-menu absolute bg-white top-full right-0 shadow-md z-20"
+					className="w-wf-menu absolute bg-white top-full right-0 shadow-md border border-grey-100 z-20"
 				>
 					<NavigationList data={menuData} level={1} isMenu={true} />
 				</div>

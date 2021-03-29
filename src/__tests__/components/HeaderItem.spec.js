@@ -1,29 +1,26 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import store from '../../store';
 import HeaderItem from '../../components/HeaderItem';
+import MockWrapper from '../../utils/MockWrapper';
 import { userMockLoggedOutData } from '../../store/reducers/settingsReducer';
 
 describe('HeaderItem Component', () => {
 	it('should render component with data', () => {
 		render(
-			<Provider store={store}>
-				<HeaderItem
-					menuData={userMockLoggedOutData.menuItems}
-					menuItem={<div data-testid="test-icon" />}
-				/>
-			</Provider>
+			<HeaderItem
+				menuData={userMockLoggedOutData.menuItems}
+				menuItem={<div data-testid="test-icon" />}
+			/>,
+			{ wrapper: MockWrapper }
 		);
 		expect(screen.getByTestId('header-item-button')).toBeInTheDocument();
 	});
 	it('should open the dropdown menu on click of item', () => {
 		render(
-			<Provider store={store}>
-				<HeaderItem
-					menuData={userMockLoggedOutData.menuItems}
-					menuItem={<div data-testid="test-icon" />}
-				/>
-			</Provider>
+			<HeaderItem
+				menuData={userMockLoggedOutData.menuItems}
+				menuItem={<div data-testid="test-icon" />}
+			/>,
+			{ wrapper: MockWrapper }
 		);
 		fireEvent.click(screen.getByTestId('header-item-button'));
 		expect(screen.getByTestId('navigation-list-1')).toBeInTheDocument();

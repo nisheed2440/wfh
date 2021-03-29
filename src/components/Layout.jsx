@@ -7,7 +7,7 @@ import { toggleNavOpen } from '../store/reducers/settingsReducer';
 
 const Layout = ({ sidebar, header, children }) => {
 	const navOpen = useSelector(isNavOpen);
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	return (
 		<div
 			className="w-full h-full flex flex-row overflow-hidden"
@@ -36,7 +36,7 @@ const Layout = ({ sidebar, header, children }) => {
 						<IoMenuSharp />
 					</button>
 				</div>
-				<div className="flex-1" data-testid="sidebar">
+				<div className="flex-1 overflow-y-auto" data-testid="sidebar">
 					{sidebar}
 				</div>
 			</aside>
