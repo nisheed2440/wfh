@@ -71,3 +71,35 @@ You can start the app with `npm start` or `yarn start`.
 ## Navigation data
 
 We have included an example navigation data JSON response in the data directory in this repo for you to pull in/mock how you wish. The response is also available to work against on a mock endpoint, with an artificial 1 second delay: https://run.mocky.io/v3/b49604f2-3705-4e14-992f-1378fb4b598f?mocky-delay=1000ms
+
+
+# Update
+## Solution & References
+
+I have tried to implement all the requirements as per design which took a little more time. I began by
+
+- Adding the necessary dependencies 
+- Using figma to upload the designs and find out relative widths and heights
+- Building the layout component with component state for toggling the sidebar while unit testing the same
+- Using the mock data provided to build the navigation component while unit testing the same
+
+Then I moved to:
+- Adding the store and reducers and tests
+- Adding the thunks needed to populate the data
+- Additional logic to show root navigation selection indicator
+- Adding the re-usable navigation list component to the header drop down menu
+- Mocked the user logged in and logged out data and used it to show the menu
+- Added react router and added basic routing
+- Added react helmet to update the page title
+- Added documentation as needed
+- The test cases and component prop names are self descriptive
+
+**__NOTE__**: The lack of CSS is due to the fact that I am using tailwind CSS utility classes. Building and running the application creates a highly optimized CSS file which contains on the the classes used in the components.
+
+### References
+- [Redux JS Toolkit](https://redux-toolkit.js.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Helmet](https://www.npmjs.com/package/react-helmet)
+- [React Router DOM](https://reactrouter.com/web)
+- [React Icons](https://react-icons.github.io/react-icons/)
+
