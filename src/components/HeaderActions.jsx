@@ -9,6 +9,7 @@ const HeaderActions = () => {
 		<HeaderItem
 			menuItem={
 				<>
+					{/* Incase the user logged in show user name */}
 					{userData.label && (
 						<span className="text-xs mr-2.5">{userData.label}</span>
 					)}

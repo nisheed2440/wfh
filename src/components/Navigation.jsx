@@ -9,17 +9,19 @@ const Navigation = () => {
 	const data = useSelector(getNavigationData);
 	useEffect(() => {
 		if (!data) {
+			// Fetch data from API if not nav data is available in store
 			dispatch(getNavData());
 		}
 	});
 	if(data) {
+		// Show navigation list when nav data is available
 		return (
 			<nav data-testid="navigation" className="overflow-hidden">
 				<NavigationList data={data} />
 			</nav>
 		);
 	}
-
+	// Show loading skeleton when nav data is unavailable
 	return (
 		<div data-testid="navigation-skeleton" className="animate-pulse">
 			{Array.from(Array(10).keys()).map((i) => (

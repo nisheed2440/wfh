@@ -11,10 +11,12 @@ const Login = () => {
 		dispatch(login());
 	});
 	if (loggedIn) {
+		// if user is logged in redirect to home page
 		return <Redirect to="/" />;
 	}
+	// Show user some feedback about logging in
 	return (
-		<div className="w-full h-full flex items-center justify-center">
+		<div data-testid="login-skeleton" className="w-full h-full flex items-center justify-center">
 			Logging In...
 		</div>
 	);

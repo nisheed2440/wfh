@@ -6,6 +6,11 @@ import NavigationList, { NavDataPropType } from './NavigationList';
 export const HeaderItem = ({ menuData, menuItem }) => {
 	const [menuShown, setMenuShown] = useState(false);
 	const menuButtonRef = useRef(null);
+	
+	/**
+	 * Function callback for when the document is clicked
+	 * @param {MouseEvent} event The mouse event
+	 */
 	const handleDocumentClick = (event) => {
 		if (menuButtonRef && !menuButtonRef.current.contains(event.target)) {
 			setMenuShown(false);
@@ -13,7 +18,9 @@ export const HeaderItem = ({ menuData, menuItem }) => {
 	};
 
 	useEffect(() => {
+		// Close the menu when clicked anywhere else on the document
 		document.addEventListener('mousedown', handleDocumentClick);
+		// Clean up
 		return () => {
 			document.removeEventListener('mousedown', handleDocumentClick);
 		};
@@ -37,6 +44,7 @@ export const HeaderItem = ({ menuData, menuItem }) => {
 					data-testid="header-item-dropdown"
 					className="w-wf-menu absolute bg-white top-full right-0 shadow-md border border-grey-100 z-20"
 				>
+					{/* Reused navigation list which starts at level 1 */}
 					<NavigationList data={menuData} level={1} isMenu={true} />
 				</div>
 			)}

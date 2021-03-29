@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import NavigationListItemIcon from './NavigationListItemIcon';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import NavigationListItemIcon from './NavigationListItemIcon';
 import { isNavOpen } from '../store/selectors/settingsSelectors';
 import { setSelected } from '../store/reducers/navigationReducer';
 import { getSelectedNavItem } from '../store/selectors/navigationSelectors';
@@ -33,20 +34,36 @@ const NavigationListItem = ({ item, level, children, isMenu, root }) => {
 
 	useEffect(() => {
 		if (match) {
+			// Is the route matches the selected item set 
+			// the corresponding root element as selected
 			dispatch(setSelected(root));
 		}
 	});
 
+	// Function to toggle the submenu if it exists
 	const handleSubMenuToggle = () => {
 		setSubMenuOpen(!subMenuOpen);
 	};
-	
+
 	return (
-		<li id={id} data-testid={`navigation-list-item-${level}`}>
+		<li
+			id={id}
+			data-testid={`navigation-list-item-${level}`}
+			title={title}
+			role="menuitem"
+		>
 			<div className="w-full flex items-center px-5 relative">
+				{/* Root navigation selection indicator for level 0 items */}
 				{level === 0 && selected.id === id && (
 					<div className="w-1 h-wf-icon bg-wf-purple absolute left-0 rounded-tr rounded-br" />
 				)}
+				{/* Switch page title based on selected item */}
+				{!!match && (
+					<Helmet>
+						<title>Partner Home | {title}</title>
+					</Helmet>
+				)}
+				{/* Show the icon or selection indicator for all levels */}
 				{!isMenu && (
 					<NavigationListItemIcon
 						icon={icon}
@@ -55,6 +72,7 @@ const NavigationListItem = ({ item, level, children, isMenu, root }) => {
 						isActive={!!match}
 					/>
 				)}
+				{/* Output nav item button */}
 				{!hasChildren && (
 					<button
 						className={cx(
@@ -71,6 +89,7 @@ const NavigationListItem = ({ item, level, children, isMenu, root }) => {
 						<span className="truncate">{title}</span>
 					</button>
 				)}
+				{/* Output nav submenu button */}
 				{hasChildren && (
 					<button
 						className="w-full flex py-4 items-center text-xs focus:outline-none overflow-hidden"
@@ -84,6 +103,7 @@ const NavigationListItem = ({ item, level, children, isMenu, root }) => {
 					</button>
 				)}
 			</div>
+			{/* Nav submenu */}
 			{hasChildren && (
 				<div
 					data-testid="navigation-submenu"

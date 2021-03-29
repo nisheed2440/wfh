@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Mock data for menu when user is logged in
 export const userMockLoggedInData = {
 	label: 'Safavieh',
 	menuItems: [
@@ -31,6 +32,7 @@ export const userMockLoggedInData = {
 	],
 };
 
+// Mock data for menu when user is logged out
 export const userMockLoggedOutData = {
 	menuItems: [
 		{
@@ -41,6 +43,7 @@ export const userMockLoggedOutData = {
 	],
 };
 
+// Initial settings state
 const initialState = {
 	navOpen: false,
 	user: userMockLoggedOutData,
@@ -51,13 +54,16 @@ const settingsSlice = createSlice({
 	name: 'settings',
 	initialState,
 	reducers: {
+		// Toggle sidebar open close
 		toggleNavOpen(state) {
 			state.navOpen = !state.navOpen;
 		},
+		// Set user logged in
 		login(state) {
 			state.user = userMockLoggedInData;
 			state.loggedIn = true;
 		},
+		// Logout the user by clearing all data
 		logout(state) {
 			state.user = userMockLoggedOutData;
 			state.loggedIn = false;

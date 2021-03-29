@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { IoMenuSharp } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { isNavOpen } from '../store/selectors/settingsSelectors';
 import { toggleNavOpen } from '../store/reducers/settingsReducer';
 
@@ -29,6 +30,7 @@ const Layout = ({ sidebar, header, children }) => {
 						className="w-wf-icon h-wf-icon text-wf-icon flex justify-center items-center"
 						type="button"
 						onClick={() => {
+							// Update the store with the toggled state of the sidebar
 							dispatch(toggleNavOpen());
 						}}
 						data-testid="sidebar-toggle"
@@ -45,13 +47,13 @@ const Layout = ({ sidebar, header, children }) => {
 				data-testid="main-container"
 			>
 				<header className="h-16 flex flex-shrink-0 items-center shadow border-b border-wf-gray px-5">
-					<a href="/" title="Partner Home">
+					<Link to="/" title="Partner Home">
 						<img
 							className="h-6"
 							src={`${process.env.PUBLIC_URL}/wayfair-partner-home-logo.svg`}
 							alt="Partner Home"
 						/>
-					</a>
+					</Link>
 					<div className="flex-1" />
 					<div
 						className="flex items-center relative"
@@ -60,7 +62,7 @@ const Layout = ({ sidebar, header, children }) => {
 						{header}
 					</div>
 				</header>
-				<main className="flex-1" data-testid="main">
+				<main className="flex-1 overflow-y-auto" data-testid="main">
 					{children}
 				</main>
 			</div>

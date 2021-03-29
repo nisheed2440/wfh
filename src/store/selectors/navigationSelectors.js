@@ -1,3 +1,4 @@
+// The navigation state selectors to be used within components
 import { createSelector } from "reselect";
 
 export const getSelectedNavItem = (state) => state.navigation.selected || {};

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { getNavIcon } from '../utils/constants';
+import { getNavIcon } from '../utils/common';
 
 const NavigationListItemIcon = ({ icon, hasAlert, isActive, level }) => {
 	const NavIcon = getNavIcon(icon);
@@ -9,6 +9,7 @@ const NavigationListItemIcon = ({ icon, hasAlert, isActive, level }) => {
 				data-testid="item-icon-spacer"
 				className="w-wf-icon h-wf-icon flex flex-shrink-0 justify-end items-center mr-2.5"
 			>
+				{/* If active show indicator for menu items */}
 				{isActive && (
 					<div
 						data-testid="active-dot"
@@ -18,6 +19,7 @@ const NavigationListItemIcon = ({ icon, hasAlert, isActive, level }) => {
 			</div>
 		);
 	}
+	// Show navigation item icon for level 0 items if it exists
 	return (
 		<div
 			data-testid="item-icon"

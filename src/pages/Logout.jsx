@@ -8,13 +8,16 @@ const Logout = () => {
 	const dispatch = useDispatch();
 	const loggedIn = useSelector(isLoggedIn);
 	useEffect(() => {
+		// Update the store by clearing the user data
 		dispatch(logout());
 	});
-	if (loggedIn) {
+	if (!loggedIn) {
+		// if user is not logged in redirect to home page
 		return <Redirect to="/" />;
 	}
+	// Show user some feedback about logging out
 	return (
-		<div className="w-full h-full flex items-center justify-center">
+		<div data-testid="logout-skeleton" className="w-full h-full flex items-center justify-center">
 			Logging Out...
 		</div>
 	);

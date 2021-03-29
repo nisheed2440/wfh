@@ -1,3 +1,4 @@
+// The settings state selectors to be used within components
 import { createSelector } from "reselect";
 
 export const isNavOpen = (state) => state.settings.navOpen;

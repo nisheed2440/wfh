@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import MockWrapper from '../../utils/MockWrapper';
 import NavigationListItem from '../../components/NavigationListItem';
+import { Route } from 'react-router';
 
 describe('NavigationListItem Component', () => {
 	const mockData = {
@@ -13,10 +14,34 @@ describe('NavigationListItem Component', () => {
 	};
 
 	it('should render default', () => {
-		render(<NavigationListItem item={mockData} level={0} root={mockData}/>, {
-			wrapper: MockWrapper,
-		});
+		render(
+			<NavigationListItem item={mockData} level={0} root={mockData} />,
+			{
+				wrapper: MockWrapper,
+			}
+		);
 		expect(screen.getByTestId('navigation-link')).toBeInTheDocument();
+	});
+
+	it('should change the route to match nav item id', () => {
+		let testLocation;
+		render(
+			<>
+				<NavigationListItem item={mockData} level={0} root={mockData} />
+				<Route
+					path="*"
+					render={({ location }) => {
+						testLocation = location;
+						return null;
+					}}
+				/>
+			</>,
+			{
+				wrapper: MockWrapper,
+			}
+		);
+		fireEvent.click(screen.getByTestId('navigation-link'));
+		expect(testLocation.pathname).toBe('/help-and-support');
 	});
 
 	it('should render children as collapsible component', () => {

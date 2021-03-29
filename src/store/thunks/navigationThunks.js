@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NAV_DATA_API } from '../../utils/constants';
 
+/**
+ * Thunk to fetch the navigation data
+ * Note: https://redux-toolkit.js.org/api/createAsyncThunk
+ */
 export const getNavData = createAsyncThunk(
 	'navigation/getNavData',
 	async () => {
-		const { data } = await axios.get(
-			'https://run.mocky.io/v3/b49604f2-3705-4e14-992f-1378fb4b598f?mocky-delay=1000ms'
-		);
+		const { data } = await axios.get(NAV_DATA_API);
 		return data;
 	}
 );
