@@ -13,7 +13,7 @@ describe('NavigationListItem Component', () => {
 	};
 
 	it('should render default', () => {
-		render(<NavigationListItem item={mockData} level={0} />, {
+		render(<NavigationListItem item={mockData} level={0} root={mockData}/>, {
 			wrapper: MockWrapper,
 		});
 		expect(screen.getByTestId('navigation-link')).toBeInTheDocument();
@@ -22,7 +22,7 @@ describe('NavigationListItem Component', () => {
 	it('should render children as collapsible component', () => {
 		const data = { ...mockData, children: [mockData] };
 		render(
-			<NavigationListItem item={data} level={0}>
+			<NavigationListItem item={data} level={0} root={data}>
 				<div data-testid="test-child" />
 			</NavigationListItem>,
 			{ wrapper: MockWrapper }
@@ -36,7 +36,7 @@ describe('NavigationListItem Component', () => {
 	it('should open collapsible sub menu component on click of navigation button', () => {
 		const data = { ...mockData, children: [mockData] };
 		render(
-			<NavigationListItem item={data} level={0}>
+			<NavigationListItem item={data} level={0} root={data}>
 				<div data-testid="test-child" />
 			</NavigationListItem>,
 			{ wrapper: MockWrapper }

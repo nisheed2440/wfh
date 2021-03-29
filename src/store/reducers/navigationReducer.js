@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getNavData } from '../thunks/navigationThunks';
 
 const initialState = {
-	data: [],
+	data: null,
 	selected: null,
 	error: null,
 };

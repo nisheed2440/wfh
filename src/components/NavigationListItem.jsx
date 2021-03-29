@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import NavigationListItemIcon from './NavigationListItemIcon';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
-import { useHistory, useLocation, matchPath } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { isNavOpen } from '../store/selectors/settingsSelectors';
+import { setSelected } from '../store/reducers/navigationReducer';
+import { getSelectedNavItem } from '../store/selectors/navigationSelectors';
 
 const NavItemType = PropTypes.shape({
 	title: PropTypes.string,
@@ -19,41 +21,38 @@ NavItemType.children = PropTypes.arrayOf(NavItemType);
 
 export const NavItemPropType = NavItemType;
 
-const NavigationListItem = ({ item, level, children, isMenu }) => {
-	const { title, id, icon, url, hasAlert } = item;
+const NavigationListItem = ({ item, level, children, isMenu, root }) => {
+	const { title, id, icon, hasAlert } = item;
 	const [subMenuOpen, setSubMenuOpen] = useState(false);
-	const handleSubMenuToggle = () => {
-		setSubMenuOpen(!subMenuOpen);
-	};
 	const hasChildren = item.children && item.children.length > 0;
 	const navOpen = useSelector(isNavOpen);
 	const history = useHistory();
-	const location = useLocation();
-	const [isActive, setIsActive] = useState(false);
+	const dispatch = useDispatch();
+	const match = useRouteMatch(`/${id}`);
+	const selected = useSelector(getSelectedNavItem);
 
 	useEffect(() => {
-		const matched = matchPath(location.pathname + location.hash, {
-			path: item.url,
-		});
-		if (matched) {
-			setIsActive(true);
-		} else {
-			setIsActive(false);
+		if (match) {
+			dispatch(setSelected(root));
 		}
-	}, [isActive, item, location]);
+	});
 
+	const handleSubMenuToggle = () => {
+		setSubMenuOpen(!subMenuOpen);
+	};
+	
 	return (
-		<li
-			id={id}
-			data-testid={`navigation-list-item-${level}`}
-		>
-			<div className="w-full flex items-center px-5">
+		<li id={id} data-testid={`navigation-list-item-${level}`}>
+			<div className="w-full flex items-center px-5 relative">
+				{level === 0 && selected.id === id && (
+					<div className="w-1 h-wf-icon bg-wf-purple absolute left-0 rounded-tr rounded-br" />
+				)}
 				{!isMenu && (
 					<NavigationListItemIcon
 						icon={icon}
 						level={level}
 						hasAlert={hasAlert}
-						isActive={isActive}
+						isActive={!!match}
 					/>
 				)}
 				{!hasChildren && (
@@ -61,12 +60,12 @@ const NavigationListItem = ({ item, level, children, isMenu }) => {
 						className={cx(
 							'w-full flex py-4 items-center text-xs focus:outline-none overflow-hidden',
 							{
-								'text-wf-purple': isActive,
+								'text-wf-purple': !!match,
 							}
 						)}
 						data-testid="navigation-link"
 						onClick={() => {
-							history.push(url);
+							history.push(`/${id}`);
 						}}
 					>
 						<span className="truncate">{title}</span>
@@ -108,6 +107,7 @@ NavigationListItem.propTypes = {
 		PropTypes.node,
 	]),
 	isMenu: PropTypes.bool,
+	root: NavItemPropType.isRequired,
 };
 
 NavigationListItem.defaultProps = {

@@ -1,7 +1,6 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import data from './navigation.json';
 import Navigation from './components/Navigation';
 import HeaderActions from './components/HeaderActions';
 import './App.css';
@@ -13,15 +12,12 @@ function App() {
 	return (
 		<Router>
 			<Provider store={store}>
-				<Layout
-					header={<HeaderActions />}
-					sidebar={<Navigation data={data} />}
-				>
+				<Layout header={<HeaderActions />} sidebar={<Navigation />}>
 					<Switch>
-						<Route path="/u/login">
+						<Route path="/login">
 							<Login />
 						</Route>
-						<Route path="/u/logout">
+						<Route path="/logout">
 							<Logout />
 						</Route>
 						<Route path="/">

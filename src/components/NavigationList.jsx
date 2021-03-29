@@ -1,16 +1,30 @@
 import PropTypes from 'prop-types';
-import NavigationListItem , { NavItemPropType } from './NavigationListItem';
+import NavigationListItem, { NavItemPropType } from './NavigationListItem';
 
-const NavigationList = ({ data, level, isMenu }) => {
+const NavigationList = ({ data, level, isMenu, root }) => {
 	return (
 		<ul data-testid={`navigation-list-${level}`}>
 			{data
 				.filter((item) => !!item.title)
-				.map((item) => (
-					<NavigationListItem key={item.id} item={item} level={level} isMenu={isMenu}>
-                        <NavigationList data={item.children} level={level + 1} isMenu={isMenu}/>
-                    </NavigationListItem>
-				))}
+				.map((item) => {
+					const parent = root || item;
+					return (
+						<NavigationListItem
+							key={item.id}
+							item={item}
+							level={level}
+							isMenu={isMenu}
+							root={parent}
+						>
+							<NavigationList
+								data={item.children}
+								level={level + 1}
+								isMenu={isMenu}
+								root={parent}
+							/>
+						</NavigationListItem>
+					);
+				})}
 		</ul>
 	);
 };
@@ -20,13 +34,15 @@ export const NavDataPropType = PropTypes.arrayOf(NavItemPropType);
 NavigationList.propTypes = {
 	data: NavDataPropType,
 	level: PropTypes.number,
-    isMenu: PropTypes.bool,
+	isMenu: PropTypes.bool,
+	root: NavItemPropType,
 };
 
 NavigationList.defaultProps = {
 	data: [],
 	level: 0,
-    isMenu: false,
+	isMenu: false,
+	root: null,
 };
 
 export default NavigationList;

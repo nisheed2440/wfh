@@ -11,7 +11,7 @@ const Login = () => {
 		dispatch(login());
 	});
 	if (loggedIn) {
-		return <div />;
+		return <Redirect to="/" />;
 	}
 	return (
 		<div className="w-full h-full flex items-center justify-center">

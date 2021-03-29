@@ -18,7 +18,7 @@ describe('navigationReducer', () => {
 			id: 'test',
 			url: 'test',
 		};
-		expect(getSelectedNavItem(store.getState())).toBeNull();
+		expect(getSelectedNavItem(store.getState())).toMatchObject({});
 		store.dispatch(setSelected(mockData));
 		expect(getSelectedNavItem(store.getState())).toMatchObject(mockData);
 	});
@@ -36,7 +36,7 @@ describe('navigationReducer', () => {
 				data: mockData,
 			})
 		);
-		expect(getNavigationData(store.getState())).toEqual([]);
+		expect(getNavigationData(store.getState())).toEqual(null);
 		await store.dispatch(getNavData());
 		expect(getNavigationData(store.getState())).toMatchObject(mockData);
 	});
