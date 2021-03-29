@@ -7,7 +7,14 @@ const HeaderActions = () => {
 	const userData = useSelector(getUserData);
 	return (
 		<HeaderItem
-			menuItem={<FaRegUserCircle />}
+			menuItem={
+				<>
+					{userData.label && (
+						<span className="text-xs mr-2.5">{userData.label}</span>
+					)}
+					<FaRegUserCircle />
+				</>
+			}
 			menuData={userData.menuItems}
 		/>
 	);

@@ -23,7 +23,7 @@ export const HeaderItem = ({ menuData, menuItem }) => {
 		<div className="relative" ref={menuButtonRef}>
 			<button
 				data-testid="header-item-button"
-				className={cx('w-wf-icon h-wf-icon text-wf-icon', {
+				className={cx('flex items-center text-wf-icon', {
 					'text-wf-purple': menuShown,
 				})}
 				onClick={() => {
