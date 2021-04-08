@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { IoMenuSharp } from 'react-icons/io5';
@@ -5,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { isNavOpen } from '../store/selectors/settingsSelectors';
 import { toggleNavOpen } from '../store/reducers/settingsReducer';
-import { useEffect } from 'react';
 import { setSelected } from '../store/reducers/navigationReducer';
 
 const Layout = ({ sidebar, header, children }) => {
