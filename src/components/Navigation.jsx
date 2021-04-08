@@ -1,12 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNavigationData } from '../store/selectors/navigationSelectors';
+import { useLocation } from 'react-router-dom';
+import { getSelectedNavData } from '../store/selectors/navigationSelectors';
 import { getNavData } from '../store/thunks/navigationThunks';
 import NavigationList from './NavigationList';
 
 const Navigation = () => {
 	const dispatch = useDispatch();
-	const data = useSelector(getNavigationData);
+	const location = useLocation();
+	// The URL is the ID from which the selected item can be found
+	const menuId = location.pathname.replace(/^\//, '');
+	// Fetch selected data if any
+	const data = useSelector(getSelectedNavData(menuId));
+
 	useEffect(() => {
 		if (!data) {
 			// Fetch data from API if not nav data is available in store

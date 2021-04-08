@@ -23,18 +23,18 @@ NavItemType.children = PropTypes.arrayOf(NavItemType);
 export const NavItemPropType = NavItemType;
 
 const NavigationListItem = ({ item, level, children, isMenu, root }) => {
-	const { title, id, icon, hasAlert } = item;
+	const { title, id, icon, hasAlert, selected } = item;
 	const [subMenuOpen, setSubMenuOpen] = useState(false);
 	const hasChildren = item.children && item.children.length > 0;
 	const navOpen = useSelector(isNavOpen);
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const match = useRouteMatch(`/${id}`);
-	const selected = useSelector(getSelectedNavItem);
+	const selectedRoot = useSelector(getSelectedNavItem);
 
 	useEffect(() => {
-		if (match) {
-			// Is the route matches the selected item set 
+		if (match && !selected) {
+			// Is the route matches the selected item set
 			// the corresponding root element as selected
 			dispatch(setSelected(root));
 		}
@@ -54,11 +54,11 @@ const NavigationListItem = ({ item, level, children, isMenu, root }) => {
 		>
 			<div className="w-full flex items-center px-5 relative">
 				{/* Root navigation selection indicator for level 0 items */}
-				{level === 0 && selected.id === id && (
+				{level === 0 && selectedRoot.id === id && (
 					<div className="w-1 h-wf-icon bg-wf-purple absolute left-0 rounded-tr rounded-br" />
 				)}
 				{/* Switch page title based on selected item */}
-				{!!match && (
+				{selected && (
 					<Helmet>
 						<title>Partner Home | {title}</title>
 					</Helmet>
@@ -69,16 +69,16 @@ const NavigationListItem = ({ item, level, children, isMenu, root }) => {
 						icon={icon}
 						level={level}
 						hasAlert={hasAlert}
-						isActive={!!match}
+						isActive={selected}
 					/>
 				)}
 				{/* Output nav item button */}
 				{!hasChildren && (
 					<button
 						className={cx(
-							'w-full flex py-4 items-center text-xs focus:outline-none overflow-hidden',
+							'w-full flex py-4 items-center text-xs overflow-hidden',
 							{
-								'text-wf-purple': !!match,
+								'text-wf-purple': selected,
 							}
 						)}
 						data-testid="navigation-link"
@@ -92,7 +92,12 @@ const NavigationListItem = ({ item, level, children, isMenu, root }) => {
 				{/* Output nav submenu button */}
 				{hasChildren && (
 					<button
-						className="w-full flex py-4 items-center text-xs focus:outline-none overflow-hidden"
+						className={cx(
+							'w-full flex py-4 items-center text-xs overflow-hidden',
+							{
+								'text-wf-purple': selected,
+							}
+						)}
 						onClick={handleSubMenuToggle}
 						data-testid="navigation-button"
 					>
