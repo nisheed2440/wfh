@@ -2,13 +2,24 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { IoMenuSharp } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { isNavOpen } from '../store/selectors/settingsSelectors';
 import { toggleNavOpen } from '../store/reducers/settingsReducer';
+import { useEffect } from 'react';
+import { setSelected } from '../store/reducers/navigationReducer';
 
 const Layout = ({ sidebar, header, children }) => {
 	const navOpen = useSelector(isNavOpen);
 	const dispatch = useDispatch();
+	const history = useHistory();
+
+	useEffect(() => {
+		// Reset the selected data on route change
+		history.listen(() => {
+			dispatch(setSelected(null));
+		});
+	});
+
 	return (
 		<div
 			className="w-full h-full flex flex-row overflow-hidden"
